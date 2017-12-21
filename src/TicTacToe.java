@@ -1,6 +1,10 @@
 public class TicTacToe {
     String [][] board = new String[3][3];
     String turn = "o";
+
+    /**
+     * a really bad implementation of tic tac toe
+     */
     public TicTacToe(){
         for(int i = 0; i<board.length; i++){
             for(int j = 0; j< board[i].length; j++){
@@ -8,6 +12,13 @@ public class TicTacToe {
             }
         }
     }
+
+    /**
+     * call to make a move
+     * @param row the row the move is on
+     * @param col the col the move is on
+     * @return if the move was successfull
+     */
     public boolean makeMove(int row, int col){
         if(board[row][col].equals(".")) {
             board[row][col] = turn;
@@ -19,6 +30,11 @@ public class TicTacToe {
         return true;
     }
 
+    /**
+     * the make move for the networks this turns the raw output of the networks into a row and a col
+     * @param input the array of doubles representing the output of the network
+     * @return if the move was successfull
+     */
     public boolean makeMove(double[] input){
         int max = 0;
         for(int i = 1; i<input.length;i++){
@@ -29,9 +45,12 @@ public class TicTacToe {
         int row = (int)Math.floor(max/board.length);
         int col = (int)(max%board.length);
         return makeMove(row,col);
-
     }
 
+    /**
+     * gets the winner of the game
+     * @return if the game isnt over then returns "."
+     */
     public String getWinner(){
         if(board[0][0]==board[0][1]&&board[0][1]==board[0][2]){
             if(!board[0][0].equals(".")) {
@@ -77,6 +96,11 @@ public class TicTacToe {
         }
         return ".";
     }
+
+    /**
+     * takes the gameboard and turns it into a network readable list of inputs
+     * @return the list of inputs
+     */
     public double[] toInput(){
         double[] ret = new double[9];
         int k =0;
@@ -95,6 +119,10 @@ public class TicTacToe {
         return ret;
     }
 
+    /**
+     *
+     * @return the gameboard in a human readable way, your welcome
+     */
     @Override
     public String toString() {
         String ret = "";
